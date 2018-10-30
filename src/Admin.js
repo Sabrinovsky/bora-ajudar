@@ -1,8 +1,10 @@
 import React, { Component} from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom'
 
 import { auth } from './Base'
 import AdminCampaign from './AdminCampaign'
+import AdminBatata from './AdminBatata'
+
 
 const AdminHome = props => <p>Bem vindo</p>
 
@@ -32,14 +34,16 @@ class Admin extends Component{
             return <Redirect to='/login'></Redirect>
         }
         return(
-            <div>            
-                <h1>Painel adminstrador</h1>
-                <Route path='/' component={AdminHome} />
-                <Route 
-                    path={`${this.props.match.url}
-                    /campanhas`} component={ AdminCampaign } 
-                />
-            </div>
+            <Router>
+                <div>
+                                
+                    <h1>Painel adminstrador</h1>
+                    <Route path='/admin' component={AdminHome}> 
+                        <Route path='/campanhas' component={ AdminCampaign } />
+                    </Route>
+                    
+                </div>
+            </Router>
         )
     }
 }
