@@ -12,6 +12,7 @@ class AdminCampaign extends Component{
         this.renderCampaign = this.renderCampaign.bind(this)
         this.removeCampaign = this.removeCampaign.bind(this)
         this.handleSave = this.handleSave.bind(this)
+        this.edit = this.edit.bind(this)
     }
     componentDidMount(){
         base.syncState('campaigns', {
@@ -31,7 +32,8 @@ class AdminCampaign extends Component{
         })
     }
     handleSave(){
-        console.log(this.nome)
+        
+        console.log(this.nome.value)
         // const nome = this.nome.value
         // const texto = this.texto.value
         // const sub = this.sub.value
@@ -44,13 +46,19 @@ class AdminCampaign extends Component{
         //     err =>{
         //     console.log(err)
         // })
+
     }
+
+    edit(){
+        console.log('teste')
+    }
+
     renderCampaign(key, campaign){
         return(
             <li key={key}>
                 {campaign.nome}
                 &nbsp;
-                <button onClick={()=>1}>Editar</button>
+                <button onClick={()=>this.edit()}>Editar</button>
                 <button onClick={()=> this.removeCampaign(key)}>Remover</button>
             </li>
         )
@@ -67,7 +75,8 @@ class AdminCampaign extends Component{
                 Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
                 Sub-título: <input type='text' ref={ref => this.contato = ref} /><br />
                 Tipo: <input type='text' ref={ref => this.tipo = ref} /><br />
-                <button onClick={this.handleSave()}>Salvar nova campanha</button>
+                <button onClick={()=>this.handleSave()}>Salvar</button>
+
                 <ul>
                     { Object
                         .keys(this.state.campaigns)
