@@ -39,19 +39,19 @@ class Login extends Component{
             })
         })
     }
-
     render(){
-        if(this.state.isLoggedIn){
+        const {isLoggedIn , isLogging, error} = this.state
+        if(isLoggedIn){
             return <Redirect to='/admin'></Redirect>
         }
         return (
             <div>
                 <input type='email' ref={ref => this.email = ref} />
                 <input type='passwd' ref={ref => this.passwd = ref} />
-                <button disabled={this.state.isLogging} onClick={this.handleLogin}>
+                <button disabled={isLogging} onClick={this.handleLogin}>
                     Logar
                 </button>
-                {this.state.error && <p>E-mail ou senha inválidos</p>}
+                {error && <p>E-mail ou senha inválidos</p>}
             </div>
         )
     }
