@@ -5,6 +5,7 @@ import base from './Base'
 class AdminCampaign extends Component{
     constructor(props){
         super(props)
+
         this.state = {
             campaigns : {}
         }
@@ -12,7 +13,7 @@ class AdminCampaign extends Component{
         this.renderCampaign = this.renderCampaign.bind(this)
         this.removeCampaign = this.removeCampaign.bind(this)
         this.handleSave = this.handleSave.bind(this)
-        this.edit = this.edit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
     }
     componentDidMount(){
         base.syncState('campaigns', {
@@ -33,24 +34,40 @@ class AdminCampaign extends Component{
     }
     handleSave(){
         
-        console.log(this.nome.value)
-        // const nome = this.nome.value
-        // const texto = this.texto.value
-        // const sub = this.sub.value
-        // const contato = this.contato.value
-        // const tipo = this.tipo.value
+        // console.log(this.nome.value)
+        const nome = this.nome.value
+        const texto = this.texto.value
+        const sub = this.sub.value
+        const contato = this.contato.value
+        const meta = this.contato.meta
+        const arrecadado = this.contato.arrecadado
+        const tipo = this.tipo.value
 
-        // base.push('campaigns',{
-        //     data:{nome,texto,sub,contato,tipo},
-        // }, 
-        //     err =>{
-        //     console.log(err)
-        // })
+        base.push('campaigns',{
+            data:{nome,texto,sub,contato,tipo,meta,arrecadado},
+            then: err =>{
+                if(!err){
+                    
+                    this.nome.value = '';
+                    this.texto.value = '';
+                    this.sub.value = '';
+                    this.contato.value = '';
+                    this.tipo.value = '';
+     
+                }
+            }, 
+        })
 
     }
 
-    edit(){
-        console.log('teste')
+    handleEdit(key){
+        
+        this.nome.value = this.state.campaigns[key].nome;
+        this.texto.value = this.state.campaigns[key].texto;
+        this.sub.value = this.state.campaigns[key].sub;
+        this.contato.value = this.state.campaigns[key].contato;;
+        this.tipo.value = this.state.campaigns[key].tipo;
+        
     }
 
     renderCampaign(key, campaign){
@@ -58,7 +75,7 @@ class AdminCampaign extends Component{
             <li key={key}>
                 {campaign.nome}
                 &nbsp;
-                <button onClick={()=>this.edit()}>Editar</button>
+                <button onClick={()=>this.handleEdit(key)}>Editar</button>
                 <button onClick={()=> this.removeCampaign(key)}>Remover</button>
             </li>
         )
@@ -73,8 +90,20 @@ class AdminCampaign extends Component{
                 Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
                 Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
                 Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
-                Sub-título: <input type='text' ref={ref => this.contato = ref} /><br />
-                Tipo: <input type='text' ref={ref => this.tipo = ref} /><br />
+                Tipo:
+                <input type='radio' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipo = ref} />Doação
+                <input type='radio' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipo = ref} />Produtos
+
+                {this.state.tipo === 'doacao' && <div>
+                    <h4>Doação</h4>
+                    Meta: <input type='text' ref={ref => this.meta = ref} /><br />
+                </div>}
+                {this.state.tipo === 'produtos' && <div>
+                    <h4>Produtos</h4>
+                    Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
+                    Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecado = ref} /><br />
+                </div>}
+
                 <button onClick={()=>this.handleSave()}>Salvar</button>
 
                 <ul>
