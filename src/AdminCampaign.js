@@ -38,22 +38,28 @@ class AdminCampaign extends Component{
         const nome = this.nome.value
         const texto = this.texto.value
         const sub = this.sub.value
-        const contato = this.contato.value
-        const meta = this.contato.meta
-        const arrecadado = this.contato.arrecadado
-        const tipo = this.tipo.value
+        const tipo = this.state.tipo
+        
+        const contato = this.state.tipo === 'produtos' ? this.contato.value : null
+        const arrecadado = this.state.tipo === 'doacao' ? this.arrecadado.value : null 
+        const meta = this.state.tipo === 'doacao' ? this.meta.value : null
 
         base.push('campaigns',{
             data:{nome,texto,sub,contato,tipo,meta,arrecadado},
             then: err =>{
                 if(!err){
+                    this.nome.value = ''
+                    this.texto.value = ''
+                    this.sub.value = ''
+                    if(tipo==='doacao'){
+                        this.arrecadado.value = '' 
+                        this.meta.value = ''
+                    }else{
+                        this.contato.value = ''
+                    }
+                    this.setState({tipo:''})
                     
-                    this.nome.value = '';
-                    this.texto.value = '';
-                    this.sub.value = '';
-                    this.contato.value = '';
-                    this.tipo.value = '';
-     
+
                 }
             }, 
         })
@@ -65,9 +71,21 @@ class AdminCampaign extends Component{
         this.nome.value = this.state.campaigns[key].nome;
         this.texto.value = this.state.campaigns[key].texto;
         this.sub.value = this.state.campaigns[key].sub;
-        this.contato.value = this.state.campaigns[key].contato;;
-        this.tipo.value = this.state.campaigns[key].tipo;
-        
+
+        this.setState({tipo: this.state.campaigns[key].tipo},()=>{
+
+            if(this.state.tipo === 'produtos'){
+                this.contato.value = this.state.campaigns[key].nome
+                
+            }            
+        }) 
+
+        // this.update()
+
+    }
+
+    update(){
+        console.log(this.state.tipo)
     }
 
     renderCampaign(key, campaign){
@@ -90,18 +108,18 @@ class AdminCampaign extends Component{
                 Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
                 Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
                 Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
-                Tipo:
-                <input type='radio' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipo = ref} />Doação
-                <input type='radio' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipo = ref} />Produtos
-
+                <div>
+                <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipo = ref} />Doação<br />
+                <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipo = ref} />Produtos
+                </div>
                 {this.state.tipo === 'doacao' && <div>
                     <h4>Doação</h4>
                     Meta: <input type='text' ref={ref => this.meta = ref} /><br />
+                    Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecadado = ref} /><br />
                 </div>}
                 {this.state.tipo === 'produtos' && <div>
                     <h4>Produtos</h4>
                     Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
-                    Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecado = ref} /><br />
                 </div>}
 
                 <button onClick={()=>this.handleSave()}>Salvar</button>

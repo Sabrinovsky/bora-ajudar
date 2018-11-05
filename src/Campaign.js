@@ -34,7 +34,7 @@ class Campaign extends Component {
                     <div className='p-5 rounded'>
                         <p className='mb-0'>{campaign.texto}</p>
 
-                        { campaign.tipo === 'dinheiro' && 
+                        { campaign.tipo === 'doacao' && 
                         <div>
                             <div className='progress'>
                                 <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
