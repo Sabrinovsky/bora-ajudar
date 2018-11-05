@@ -76,7 +76,7 @@ class AdminCampaign extends Component{
         this.setState({tipo: this.state.campaigns[key].tipo},()=>{
 
             if(this.state.tipo === 'produtos'){
-                this.contato.value = this.state.campaigns[key].nome
+                this.contato.value = this.state.campaigns[key].contato
                 this.tipoP.setAttribute('checked',true)
             }
             if(this.state.tipo ==='doacao'){
@@ -89,14 +89,16 @@ class AdminCampaign extends Component{
 
         this.saveBtn.setAttribute('hidden',true)
         this.editBtn.removeAttribute('hidden',true)
+        this.setState({updatekey: key})
 
-        this.handleAtt(key)
 
         
     }
 
     handleAtt(key){
-        console.log(this.state.campaigns[key])
+        this.removeCampaign(this.state.updatekey)
+        this.handleSave()
+        
     }
 
     renderCampaign(key, campaign){
@@ -136,7 +138,7 @@ class AdminCampaign extends Component{
                         </div>}
 
                         <button onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar</button>
-                        <button onClick={()=>1} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar</button>
+                        <button onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar</button>
 
                         <ul>
                             { Object
