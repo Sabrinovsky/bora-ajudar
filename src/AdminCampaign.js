@@ -14,6 +14,7 @@ class AdminCampaign extends Component{
         this.removeCampaign = this.removeCampaign.bind(this)
         this.handleSave = this.handleSave.bind(this)
         this.handleEdit = this.handleEdit.bind(this)
+        this.handleAtt = this.handleAtt.bind(this)
     }
     componentDidMount(){
         base.syncState('campaigns', {
@@ -76,16 +77,26 @@ class AdminCampaign extends Component{
 
             if(this.state.tipo === 'produtos'){
                 this.contato.value = this.state.campaigns[key].nome
+                this.tipoP.setAttribute('checked',true)
+            }
+            if(this.state.tipo ==='doacao'){
+                this.tipoD.setAttribute('checked',true)
+                this.meta.value = this.state.campaigns[key].meta
+                this.arrecadado.value = this.state.campaigns[key].arrecadado
                 
             }            
-        }) 
+        })
 
-        // this.update()
+        this.saveBtn.setAttribute('hidden',true)
+        this.editBtn.removeAttribute('hidden',true)
 
+        this.handleAtt(key)
+
+        
     }
 
-    update(){
-        console.log(this.state.tipo)
+    handleAtt(key){
+        console.log(this.state.campaigns[key])
     }
 
     renderCampaign(key, campaign){
@@ -101,35 +112,40 @@ class AdminCampaign extends Component{
     
     render(){
         return(
-            <div className='card'>
-                <h1>Campanhas admin</h1>
-                <h2>Nova campanha</h2>
-                 
-                Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
-                Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
-                Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
-                <div>
-                <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipo = ref} />Doação<br />
-                <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipo = ref} />Produtos
+            <section className='card'>
+                <div className='container'>
+                    <div className='product-item'>
+                        <h1>Campanhas admin</h1>
+                        <h2>Nova campanha</h2>
+                        
+                        Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
+                        Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
+                        Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
+                        <div>
+                        <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipoD = ref} />Doação<br />
+                        <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipoP = ref} />Produtos
+                        </div>
+                        {this.state.tipo === 'doacao' && <div>
+                            <h4>Doação</h4>
+                            Meta: <input type='text' ref={ref => this.meta = ref} /><br />
+                            Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecadado = ref} /><br />
+                        </div>}
+                        {this.state.tipo === 'produtos' && <div>
+                            <h4>Produtos</h4>
+                            Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
+                        </div>}
+
+                        <button onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar</button>
+                        <button onClick={()=>1} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar</button>
+
+                        <ul>
+                            { Object
+                                .keys(this.state.campaigns)
+                                .map(key => this.renderCampaign(key, this.state.campaigns[key])) }
+                        </ul>
+                    </div>
                 </div>
-                {this.state.tipo === 'doacao' && <div>
-                    <h4>Doação</h4>
-                    Meta: <input type='text' ref={ref => this.meta = ref} /><br />
-                    Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecadado = ref} /><br />
-                </div>}
-                {this.state.tipo === 'produtos' && <div>
-                    <h4>Produtos</h4>
-                    Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
-                </div>}
-
-                <button onClick={()=>this.handleSave()}>Salvar</button>
-
-                <ul>
-                    { Object
-                        .keys(this.state.campaigns)
-                        .map(key => this.renderCampaign(key, this.state.campaigns[key])) }
-                </ul>
-            </div>
+            </section>
         )
     }
 }
