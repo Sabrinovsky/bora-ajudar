@@ -247,13 +247,15 @@ p {
 .font-weight-light {
   font-weight: 100 !important;
 }
+.admin-campaign{
+  padding: 3%;
+}
 
-input[type=text], {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+input[type=text], textarea{
+  width: 96%;
+  padding: 3px 15px;
   display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
 }
+
+

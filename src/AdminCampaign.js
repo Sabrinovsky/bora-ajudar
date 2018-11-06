@@ -118,7 +118,7 @@ class AdminCampaign extends Component{
         return(
             <section className='page-section'>
                 <div className='container'>
-                    <div className='product-item bg-faded'>
+                    <div className='product-item bg-faded admin-campaign'>
                     <h2>Nova campanha</h2>
                         <div>
                             Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
@@ -140,6 +140,7 @@ class AdminCampaign extends Component{
 
                             <button onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar</button>
                             <button onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar</button>
+                            <br/>
                         </div>
                         <hr/>
                         <ul>
