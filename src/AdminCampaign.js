@@ -105,12 +105,14 @@ class AdminCampaign extends Component{
 
     renderCampaign(key, campaign){
         return(
-            <li key={key}>
-                {campaign.nome}
-                &nbsp;
-                <button onClick={()=>this.handleEdit(key)}>Editar</button>
-                <button onClick={()=> this.removeCampaign(key)}>Remover</button>
-            </li>
+            <tr key={key}>
+                <td>{campaign.nome}
+                    &nbsp; </td>
+                <td><button className='btn btn-secondary' onClick={()=>this.handleEdit(key)}>Editar</button> </td>
+                <td><button className='btn btn-dark' onClick={()=> this.removeCampaign(key)}>Remover</button> </td>
+                
+                
+            </tr>
         )
     }
     
@@ -124,9 +126,11 @@ class AdminCampaign extends Component{
                             Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
                             Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
                             Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
-                            <div>
-                            <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipoD = ref} />Doação<br />
-                            <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipoP = ref} />Produtos
+                            <div class="custom-control">
+                                <label for='doacao'>Doação </label>
+                                <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipoD = ref} /><br />
+                                <label>Produtos </label>
+                                <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipoP = ref} />
                             </div>
                             {this.state.tipo === 'doacao' && <div>
                                 <h4>Doação</h4>
@@ -138,16 +142,21 @@ class AdminCampaign extends Component{
                                 Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
                             </div>}
 
-                            <button onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar</button>
-                            <button onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar</button>
+                            <button className='btn btn-secondary' onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar campanha</button>
+                            <button className='btn btn-secondary' onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar campanha</button>
                             <br/>
                         </div>
                         <hr/>
-                        <ul>
+                        <table>
+                            <tr>
+                                <th>Nome</th>
+                            </tr>
+                           
                             { Object
                                 .keys(this.state.campaigns)
                                 .map(key => this.renderCampaign(key, this.state.campaigns[key])) }
-                        </ul>
+                        
+                        </table>
                     </div>
                 </div>
             </section>
