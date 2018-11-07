@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 import base from './Base'
-
+import axios from 'axios'
 
 class Campaign extends Component {
     constructor(props){
         super(props)
         this.state = {
-            campaigns : {}
+            campaigns : {},
+            redirectDonate: {}
         }
     }
     componentDidMount(){
@@ -16,10 +18,18 @@ class Campaign extends Component {
             asArray: false
         })
     }
-
-    renderCampaign(campaign){
+    handleDonate(key){
+        axios.post('/api/donate',{
+            campaign: key,
+            value: 3
+        })
+        .then(data=>{
+            window.location = data.data.url
+        })
+    }
+    renderCampaign(key, campaign){
          return(
-            <section className='page-section'>
+            <section className='page-section' key={key} >
             <div className='container'>
                 <div className='product-item bg-faded'>
                 <div className='product-item-title d-flex'>
@@ -41,7 +51,7 @@ class Campaign extends Component {
                             </div>
                             <p>Meta: R$ 5.000,00 / Atingidos: R$ 2.500,00</p>
                             <div>
-                                <button className='btn btn-success'>Contribuir</button>
+                                <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
                             </div>
                         </div>}
                         { campaign.tipo === 'produtos' &&
@@ -63,6 +73,7 @@ class Campaign extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <section className='page-section'>
@@ -87,7 +98,7 @@ class Campaign extends Component {
                 </section>
                 { Object
                     .keys(this.state.campaigns)
-                    .map(key =>  this.renderCampaign(this.state.campaigns[key]))}
+                    .map(key =>  this.renderCampaign(key, this.state.campaigns[key]))}
                 
             </div>
         )

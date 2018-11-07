@@ -110,8 +110,6 @@ class AdminCampaign extends Component{
                     &nbsp; </td>
                 <td><button className='btn btn-secondary' onClick={()=>this.handleEdit(key)}>Editar</button> </td>
                 <td><button className='btn btn-dark' onClick={()=> this.removeCampaign(key)}>Remover</button> </td>
-                
-                
             </tr>
         )
     }
