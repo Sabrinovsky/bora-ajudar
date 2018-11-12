@@ -6,9 +6,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 
-app.use(cors())
 
 admin.initializeApp()
+app.use(cors({origin:true}))
 
 const request = require('request-promise')
 const token = '92BF73718302430D90915994E3EE9781'

@@ -19,7 +19,7 @@ class Campaign extends Component {
         })
     }
     handleDonate(key){
-        axios.post('/api/donate',{
+        axios.post('https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate',{
             campaign: key,
             value: 3
         })
@@ -49,7 +49,7 @@ class Campaign extends Component {
                             <div className='progress'>
                                 <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
                             </div>
-                            <p>Meta: R$ 5.000,00 / Atingidos: R$ 2.500,00</p>
+                            <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
                             <div>
                                 <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
                             </div>

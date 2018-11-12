@@ -11,6 +11,10 @@
     ],
     "rewrites": [
       {
+        "source":"/api/donate",
+        "function": "api"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
