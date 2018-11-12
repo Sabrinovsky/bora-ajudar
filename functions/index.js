@@ -6,9 +6,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 
+app.use(cors())
 
 admin.initializeApp()
-app.use(cors({origin:true}))
 
 const request = require('request-promise')
 const token = '92BF73718302430D90915994E3EE9781'
@@ -21,11 +21,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.get('/api', (req,res)=>{
-    
     res.send('Server side')
 })
 
 app.post('/donate',(req,res)=>{
+    console.log('teste')
     request({
         uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
         method: 'POST',
@@ -49,6 +49,7 @@ app.post('/donate',(req,res)=>{
             })
         })
     })
+    
 })
 
 app.post('/webhook', (req,res)=>{

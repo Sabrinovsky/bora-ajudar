@@ -18,13 +18,16 @@ class Campaign extends Component {
             asArray: false
         })
     }
-    handleDonate(key){
+    handleDonate(key){ 
         axios.post('https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate',{
             campaign: key,
             value: 3
         })
         .then(data=>{
             window.location = data.data.url
+        })
+        .catch(err =>{
+            console.log(err)
         })
     }
     renderCampaign(key, campaign){
