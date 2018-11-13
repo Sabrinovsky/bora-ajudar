@@ -8,7 +8,8 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.5"
+    "react-scripts": "2.0.5",
+    "request-promise": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,5 +25,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "https://us-central1-bora-ajudar-73ebc.cloudfunctions.net"
 }

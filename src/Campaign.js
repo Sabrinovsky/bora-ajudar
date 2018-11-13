@@ -24,7 +24,8 @@ class Campaign extends Component {
             value: 3
         })
         .then(data=>{
-            window.location = data.data.url
+            // window.location = data.data.url
+            console.log(data)
         })
         .catch(err =>{
             console.log(err)

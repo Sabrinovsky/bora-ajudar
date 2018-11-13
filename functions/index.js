@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 
-app.use(cors())
+app.use(cors({origin: true}));
 
 admin.initializeApp()
 
@@ -20,12 +20,12 @@ const checkoutUrl = 'https://pagseguro.uol.com.br/v2/checkout/payment.html?code=
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
+
 app.get('/api', (req,res)=>{
     res.send('Server side')
 })
 
 app.post('/donate',(req,res)=>{
-    console.log('teste')
     request({
         uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
         method: 'POST',
@@ -39,11 +39,13 @@ app.post('/donate',(req,res)=>{
             itemAmount1: '2.00'
         },
         headers:{
-            'Content-Type': 'application/x-www-urlencode; charset=UTF8'
+            'Content-Type': 'application/x-www-urlencode; charset=UTF8',
+            'Access-Control-Allow-Origin': 'true'
         }
     })
     .then(data=>{
         parse(data, (err,json)=>{
+            res.setHeader('Access-Control-Allow-Origin', 'true')
             res.send({
                 url: checkoutUrl+json.checkout.code[0]
             })
