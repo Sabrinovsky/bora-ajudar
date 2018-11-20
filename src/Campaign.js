@@ -20,7 +20,7 @@ class Campaign extends Component {
     }
     handleDonate(key){
         const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
-        const dados = {teste : 'oi'} 
+        const dados = this.campaigns[key] 
         const options = {
             method: 'POST',
             headers: {'Access-Control-Allow-Origin' : '*'},
@@ -29,7 +29,7 @@ class Campaign extends Component {
         }
         axios(options)
         .then(data=>{
-            console.log(data)
+            window.location = data.data.url
         })
         .catch(err =>{
             console.log(err)

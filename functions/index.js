@@ -50,9 +50,7 @@ app.post('/donate',(req,res)=>{
             })
         })
     })
-    .catch(err=>{
-        res.send(err)
-    })
+    
 })
 
 app.post('/webhook', (req,res)=>{
