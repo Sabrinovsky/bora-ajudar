@@ -1,0 +1,94 @@
+[debug] [2018-11-20T14:42:25.744Z] ----------------------------------------------------------------------
+[debug] [2018-11-20T14:42:25.746Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-11-20T14:42:25.746Z] CLI Version:   6.0.1
+[debug] [2018-11-20T14:42:25.746Z] Platform:      linux
+[debug] [2018-11-20T14:42:25.746Z] Node Version:  v10.8.0
+[debug] [2018-11-20T14:42:25.836Z] Time:          Tue Nov 20 2018 12:42:25 GMT-0200 (GMT-02:00)
+[debug] [2018-11-20T14:42:25.836Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-20T14:42:25.940Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-20T14:42:25.940Z] > authorizing via signed-in user
+[debug] [2018-11-20T14:42:25.940Z] [iam] checking project bora-ajudar-73ebc for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2018-11-20T14:42:25.942Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-20T14:42:25.942Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-11-20T14:42:26.333Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:26.390Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/bora-ajudar-73ebc:testIamPermissions  
+
+[debug] [2018-11-20T14:42:27.449Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:27.450Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/bora-ajudar-73ebc  
+ 
+[debug] [2018-11-20T14:42:28.770Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'bora-ajudar-73ebc'...
+[info] 
+[info] i  deploying database, functions, hosting
+[info] i  database: checking rules syntax...
+[debug] [2018-11-20T14:42:31.121Z] >>> HTTP REQUEST PUT https://bora-ajudar-73ebc.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": true,
+    ".write": "auth !== null && auth.uid === 'jOXRFdbLXOPHImq8GfcuD6M6XOa2'"
+  }
+}
+
+[debug] [2018-11-20T14:42:32.170Z] <<< HTTP RESPONSE 200
+[info] ✔  database: rules syntax for database bora-ajudar-73ebc is valid
+[debug] [2018-11-20T14:42:32.173Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.1.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "xml2js": "^0.4.19"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-11-20T14:42:32.173Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/bora-ajudar-73ebc?view=CONSUMER_VIEW  
+ 
+[debug] [2018-11-20T14:42:32.174Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/bora-ajudar-73ebc?view=CONSUMER_VIEW  
+ 
+[debug] [2018-11-20T14:42:33.664Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:33.679Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2018-11-20T14:42:33.680Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/bora-ajudar-73ebc  
+ 
+[debug] [2018-11-20T14:42:34.628Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:34.629Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/756125389294:getServerAppConfig  
+ 
+[debug] [2018-11-20T14:42:35.028Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:35.029Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/bora-ajudar-73ebc/versions  
+
+[debug] [2018-11-20T14:42:36.850Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-11-20T14:42:36.854Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/bora-ajudar-73ebc/configs  
+ 
+[debug] [2018-11-20T14:42:38.202Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (2.75 KB) for uploading
+[debug] [2018-11-20T14:42:42.268Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/bora-ajudar-73ebc/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2018-11-20T14:42:43.685Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-20T14:42:43.687Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-c729f093-dff5-47ac-8236-52c28d018048/eb9fabcb-a243-4cff-9f4d-7c1958983931.zip?GoogleAccessId=service-756125389294@gcf-admin-robot.iam.gserviceaccount.com&Expires=1542726763&Signature=X89QW9V4oJ6xyjIvqLEkAWZLLnFajdA6Cws4XaIlCvvGchDsyNMdpfWFDoJnksngbwYWfnGAL0u%2FtuFEQio7PtspEeU3i1fgC7eaVPfZ1fNhjlQI6Tc1UrtpvQobPr2YP%2FTSJcfUZ31zmx4tG3DVwliOyuvp45B%2B18uL5Kqz%2BWCqbIXVKzJdGc5lYFX6kq%2FsBzZeo2G7nUAWSnWoFk8ENq%2BNeN0v4%2Ba%2FEXIn7PDiwKCZlSnAOHX2SUGNSbw7Oust5VhI9qjR5qB6%2FnGi9%2F5pmDmlen83rb7fjxOqniYt91jIaFs%2FXucW5E7NZlxmWzj3knnHJ%2B4xVCCKjvRiyxQczQ%3D%3D  
+
+[debug] [2018-11-20T14:42:44.185Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[info] i  hosting[bora-ajudar-73ebc]: beginning deploy...
+[info] i  hosting[bora-ajudar-73ebc]: found 50 files in build
+[debug] [2018-11-20T14:42:44.218Z] [hosting] hash cache [YnVpbGQ] load error: lines is not defined
+[debug] [2018-11-20T14:42:44.924Z] [hosting] hash cache [YnVpbGQ] stored for 50 files
+[debug] [2018-11-20T14:42:44.924Z] [hosting][hash queue][FINAL]
+[debug] [2018-11-20T14:42:44.924Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/bora-ajudar-73ebc/versions/20115f700f0545a4:populateFiles  
+ <request body omitted>

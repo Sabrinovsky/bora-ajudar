@@ -6,7 +6,6 @@ const Footer = props => {
       <div className='container'>
         <p className='m-0 small'>
           <a href='https://www.devpleno.com/software-do-bem'><img src='img/software-do-bem-logo-320x128.png' /></a><br />
-          Desenvolvido durante o Hands-on ReactJS do DevPleno por Tulio Faria. Saiba mais.
         </p>
       </div>
     </footer>

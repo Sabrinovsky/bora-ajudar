@@ -18,13 +18,17 @@ class Campaign extends Component {
             asArray: false
         })
     }
-    handleDonate(key){ 
-        axios.post('https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate',{
-            campaign: key,
-            value: 3
-        })
+    handleDonate(key){
+        const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
+        const dados = {teste : 'oi'} 
+        const options = {
+            method: 'POST',
+            headers: {'Access-Control-Allow-Origin' : '*'},
+            data : dados,
+            url
+        }
+        axios(options)
         .then(data=>{
-            // window.location = data.data.url
             console.log(data)
         })
         .catch(err =>{

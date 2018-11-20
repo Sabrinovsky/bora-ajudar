@@ -40,18 +40,19 @@ app.post('/donate',(req,res)=>{
         },
         headers:{
             'Content-Type': 'application/x-www-urlencode; charset=UTF8',
-            'Access-Control-Allow-Origin': 'true'
+            'Access-Control-Allow-Origin' : '*'
         }
     })
     .then(data=>{
         parse(data, (err,json)=>{
-            res.setHeader('Access-Control-Allow-Origin', 'true')
             res.send({
                 url: checkoutUrl+json.checkout.code[0]
             })
         })
     })
-    
+    .catch(err=>{
+        res.send(err)
+    })
 })
 
 app.post('/webhook', (req,res)=>{
