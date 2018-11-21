@@ -19,8 +19,9 @@ class Campaign extends Component {
         })
     }
     handleDonate(key){
-        const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
-        const dados = this.campaigns[key] 
+        // const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
+        const url = 'http://localhost:5000/bora-ajudar-73ebc/us-central1/api/donate'
+        const dados = this.state.campaigns[key] 
         const options = {
             method: 'POST',
             headers: {'Access-Control-Allow-Origin' : '*'},
@@ -59,6 +60,12 @@ class Campaign extends Component {
                             </div>
                             <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
                             <div>
+                                <select> 
+                                    <option value="1">R$1,00</option>
+                                    <option value="5">R$5,00</option>
+                                    <option value="10">R$10,00</option>
+                                </select>
+
                                 <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
                             </div>
                         </div>}

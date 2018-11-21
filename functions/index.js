@@ -26,6 +26,7 @@ app.get('/api', (req,res)=>{
 })
 
 app.post('/donate',(req,res)=>{
+    console.log(req.body)
     request({
         uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
         method: 'POST',
@@ -33,7 +34,7 @@ app.post('/donate',(req,res)=>{
             token: token,
             email: email,
             currency: 'BRL',
-            itemId1: 'idCampanha',
+            itemId1: req.body.nome,
             itemDescription1: 'Doação',
             itemQuantity1: '1',
             itemAmount1: '2.00'
