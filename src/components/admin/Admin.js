@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom'
 
-import { auth } from './Base'
+import { auth } from '../../Base'
 import AdminCampaign from './AdminCampaign'
 
 

@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
-import base from './Base'
+import base from '../Base'
 import axios from 'axios'
+import Select from 'react-select'
+import Modal from './modal'
+const options = [
+    { value: '1.00', label: 'R$1,00' },
+    { value: '5.00', label: 'R$5,00' },
+    { value: '10.00', label: 'R$10,00' }
+  ]
 
 class Campaign extends Component {
     constructor(props){
@@ -10,6 +17,8 @@ class Campaign extends Component {
             campaigns : {},
             redirectDonate: {}
         }
+        this.handleDonate = this.handleDonate.bind(this)
+        this._handleChange = this._handleChange.bind(this)
     }
     componentDidMount(){
         base.syncState('campaigns', {
@@ -19,9 +28,13 @@ class Campaign extends Component {
         })
     }
     handleDonate(key){
-        // const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
-        const url = 'http://localhost:5000/bora-ajudar-73ebc/us-central1/api/donate'
-        const dados = this.state.campaigns[key] 
+        const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
+        // const url = 'http://localhost:5000/bora-ajudar-73ebc/us-central1/api/donate'
+        const dados = {
+            valor:this.state.donation,
+            nome:this.state.campaigns[key].nome,
+            idCampanha: key
+        }
         const options = {
             method: 'POST',
             headers: {'Access-Control-Allow-Origin' : '*'},
@@ -30,13 +43,19 @@ class Campaign extends Component {
         }
         axios(options)
         .then(data=>{
+            // console.log(data)
             window.location = data.data.url
         })
         .catch(err =>{
             console.log(err)
-        })
+        })   
+
+    }
+    _handleChange(e){
+        this.setState({donation:e.value})
     }
     renderCampaign(key, campaign){
+        // var percent = (campaign.arrecadado/campaign.meta)*100
          return(
             <section className='page-section' key={key} >
             <div className='container'>
@@ -52,29 +71,26 @@ class Campaign extends Component {
                 <div className='product-item-description d-flex ml-auto'>
                     <div className='p-5 rounded'>
                         <p className='mb-0'>{campaign.texto}</p>
-
                         { campaign.tipo === 'doacao' && 
-                        <div>
-                            <div className='progress'>
-                                <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
-                            </div>
-                            <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
                             <div>
-                                <select> 
-                                    <option value="1">R$1,00</option>
-                                    <option value="5">R$5,00</option>
-                                    <option value="10">R$10,00</option>
-                                </select>
-
-                                <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
-                            </div>
-                        </div>}
+                                <div className='progress'>
+                                    <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+                                </div>
+                                <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
+                                    <Select options={options}  onChange={this._handleChange} />
+                                    {/* <select options={options} ref = {ref => this.donationValue = ref} > */}
+                                        
+                                    {/* </select> */}
+                                <div>
+                                    <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
+                                </div>
+                            </div>}
                         { campaign.tipo === 'produtos' &&
-                        <div>
-                            <br/>
-                            <h4>Para doar, entre em contato:</h4>
-                            <p>{campaign.contato}</p>
-                        </div>
+                            <div>
+                                <br/>
+                                <h4>Para doar, entre em contato:</h4>
+                                <p>{campaign.contato}</p>
+                            </div>
                         }
                     </div> 
                 </div>
@@ -105,11 +121,12 @@ class Campaign extends Component {
                         <img className='product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0' src='img/products-01-menor.jpg' alt=''/>
                         <div className='product-item-description d-flex mr-auto'>
                             <div className='bg-faded p-5 rounded'>
-                            <p className='mb-0'>We take pride in our work, and it shows. Every time you order a beverage from us, we guarantee that it will be an experience worth having. Whether it's our world famous Venezuelan Cappuccino, a refreshing iced herbal tea, or something as simple as a cup of speciality sourced black coffee, you will be coming back for more.</p>
+                            <p className='mb-0'>Lorem ipsum sagittis consectetur mattis libero hendrerit libero nam, vivamus sem nibh ullamcorper lobortis laoreet inceptos consequat, conubia nisl tempor sapien orci conubia suscipit. pulvinar ullamcorper curabitur senectus eu iaculis laoreet, conubia aliquam gravida ac metus platea proin, dapibus dui malesuada nullam quis. ligula pulvinar tincidunt imperdiet tellus pulvinar justo hac netus, etiam aliquet tellus metus dictum senectus primis tortor eleifend, convallis duis etiam leo rhoncus conubia proin. viverra eget venenatis auctor quisque auctor hendrerit est consequat, praesent convallis class litora lacus ut dictum, pharetra aenean iaculis placerat pulvinar ut volutpat. </p>
                             </div>
                         </div>
                         </div>
                     </div>
+                    <Modal/>
                 </section>
                 { Object
                     .keys(this.state.campaigns)

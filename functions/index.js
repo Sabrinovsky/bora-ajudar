@@ -7,11 +7,11 @@ const cors = require('cors')
 const app = express()
 
 app.use(cors({origin: true}));
-
-admin.initializeApp()
+admin.initializeApp(functions.config().firebase)
+// admin.initializeApp()
 
 const request = require('request-promise')
-const token = '92BF73718302430D90915994E3EE9781'
+const token = '3D764BB231C643E3985002A6DD39D3D4'
 const email = 'matheusouzatj@gmail.com'
 const parse = require('xml2js').parseString
 
@@ -26,7 +26,7 @@ app.get('/api', (req,res)=>{
 })
 
 app.post('/donate',(req,res)=>{
-    console.log(req.body)
+    // rveconsole.log(req.body)
     request({
         uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
         method: 'POST',
@@ -34,10 +34,10 @@ app.post('/donate',(req,res)=>{
             token: token,
             email: email,
             currency: 'BRL',
-            itemId1: req.body.nome,
-            itemDescription1: 'Doação',
+            itemId1: req.body.idCampanha,
+            itemDescription1: req.body.nome,
             itemQuantity1: '1',
-            itemAmount1: '2.00'
+            itemAmount1: req.body.valor
         },
         headers:{
             'Content-Type': 'application/x-www-urlencode; charset=UTF8',
@@ -50,6 +50,9 @@ app.post('/donate',(req,res)=>{
                 url: checkoutUrl+json.checkout.code[0]
             })
         })
+    })
+    .catch(err=>{
+        res.send(err)
     })
     
 })

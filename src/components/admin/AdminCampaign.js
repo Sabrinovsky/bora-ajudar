@@ -1,6 +1,6 @@
 import React, { Component }  from 'react'
 
-import base from './Base'
+import base from '../../Base'
 
 class AdminCampaign extends Component{
     constructor(props){

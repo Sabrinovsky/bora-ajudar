@@ -3,14 +3,14 @@ import { BrowserRouter as Router,
          Route
 } from 'react-router-dom' 
 
-import Header from './Header'
-import Footer from './Footer'
-import Home from './Home'
-import About from './About'
-import Contact from './Contact'
-import Campaign from './Campaign'
-import Admin from './Admin'
-import Login from './Login'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Home from './components/Home'
+import About from './components/About'
+import Contact from './components/Contact'
+import Campaign from './components/Campaign'
+import Admin from './components/admin/Admin'
+import Login from './components/admin/Login'
 
 
 class App extends Component {
