@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
 import base from '../Base'
 import axios from 'axios'
 import Select from 'react-select'
-import Modal from './modal'
+import ReactModal from 'react-modal'
+ 
+
 const options = [
     { value: '1.00', label: 'R$1,00' },
     { value: '5.00', label: 'R$5,00' },
@@ -15,7 +16,8 @@ class Campaign extends Component {
         super(props)
         this.state = {
             campaigns : {},
-            redirectDonate: {}
+            redirectDonate: {},
+            showModal: false
         }
         this.handleDonate = this.handleDonate.bind(this)
         this._handleChange = this._handleChange.bind(this)
@@ -28,6 +30,9 @@ class Campaign extends Component {
         })
     }
     handleDonate(key){
+
+        this.setState({showModal:true})
+
         const url = 'https://us-central1-bora-ajudar-73ebc.cloudfunctions.net/api/donate'
         // const url = 'http://localhost:5000/bora-ajudar-73ebc/us-central1/api/donate'
         const dados = {
@@ -68,35 +73,32 @@ class Campaign extends Component {
                     </h2>
                     </div>
                 </div>
-                <div className='product-item-description d-flex ml-auto'>
-                    <div className='p-5 rounded'>
-                        <p className='mb-0'>{campaign.texto}</p>
-                        { campaign.tipo === 'doacao' && 
-                            <div>
-                                <div className='progress'>
-                                    <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
-                                </div>
-                                <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
-                                    <Select options={options}  onChange={this._handleChange} />
-                                    {/* <select options={options} ref = {ref => this.donationValue = ref} > */}
-                                        
-                                    {/* </select> */}
+                    <div className='product-item-description d-flex ml-auto'>
+                        <div className='p-5 rounded'>
+                            <p className='mb-0'>{campaign.texto}</p>
+                            { campaign.tipo === 'doacao' && 
                                 <div>
-                                    <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
+                                    <div className='progress'>
+                                        <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+                                    </div>
+                                    <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
+                                        <Select options={options}  onChange={this._handleChange} />
+                                        {/* <select options={options} ref = {ref => this.donationValue = ref} > */}
+                                            
+                                        {/* </select> */}
+                                    <div>
+                                        <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
+                                    </div>
+                                </div>}
+                            { campaign.tipo === 'produtos' &&
+                                <div>
+                                    <br/>
+                                    <h4>Para doar, entre em contato:</h4>
+                                    <p>{campaign.contato}</p>
                                 </div>
-                            </div>}
-                        { campaign.tipo === 'produtos' &&
-                            <div>
-                                <br/>
-                                <h4>Para doar, entre em contato:</h4>
-                                <p>{campaign.contato}</p>
-                            </div>
-                        }
-                    </div> 
-                </div>
-                <div className='ml-auto'>
-                    
-                </div>
+                            }
+                        </div> 
+                    </div>
                 </div>
             </div>
         </section>
@@ -126,7 +128,17 @@ class Campaign extends Component {
                         </div>
                         </div>
                     </div>
-                    <Modal/>
+                    
+                    <ReactModal 
+                        isOpen={this.state.showModal}
+                        
+                        className="Modal"
+                        overlayClassName="Overlay"
+                        
+                        >
+                        <div className="lds-heart" style={{opacity:'1'}}><div></div></div>
+                        
+                    </ReactModal>
                 </section>
                 { Object
                     .keys(this.state.campaigns)
