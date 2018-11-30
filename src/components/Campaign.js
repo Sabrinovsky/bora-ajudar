@@ -3,7 +3,7 @@ import base from '../Base'
 import axios from 'axios'
 import Select from 'react-select'
 import ReactModal from 'react-modal'
- 
+// import { auth } from '../../Base' 
 
 const options = [
     { value: '1.00', label: 'R$1,00' },
