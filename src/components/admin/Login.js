@@ -45,13 +45,25 @@ class Login extends Component{
             return <Redirect to='/admin'></Redirect>
         }
         return (
-            <div>
-                <input type='email' ref={ref => this.email = ref} />
-                <input type='passwd' ref={ref => this.passwd = ref} />
-                <button disabled={this.state.isLogging} onClick={this.handleLogin}>
-                    Logar
-                </button>
-                {this.state.error && <p>E-mail ou senha inválidos</p>}
+                <div className='modal-dialog text-center'  >
+                    <div className='main-section'>
+                        <div className='modal-content admin-campaign bg-faded'>
+                            <form>
+                                    <div className='form-group'>
+                                        <label for='email '>E-mail</label>
+                                        <input id='email' className='form-control' type='email' required ref={ref => this.email = ref} />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label>Senha</label>
+                                        <input type='password' className='form-control' required ref={ref => this.passwd = ref} />
+                                    </div>
+                                <button className='btn' disabled={this.state.isLogging} onClick={this.handleLogin}>
+                                Entrar
+                                </button>
+                                {this.state.error && <p>E-mail ou senha inválidos</p>}
+                            </form>
+                        </div>
+                    </div>
             </div>
         )
     }

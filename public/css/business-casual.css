@@ -67,6 +67,9 @@ p {
 .bg-faded {
   background-color: rgba(255, 255, 255, 0.85);
 }
+.bg-faded2 {
+  background-color: rgba(255, 255, 255, 0.85);
+}
 
 #mainNav {
   background-color: rgba(47, 23, 15, 0.9);
@@ -251,12 +254,12 @@ p {
   padding: 3%;
 }
 
-input[type=text], textarea{
+/* input[type=text], textarea{
   width: 96%;
   padding: 3px 15px;
   display: inline-block;
   box-sizing: border-box;
-}
+} */
 
 
 .lds-heart {
@@ -314,4 +317,18 @@ input[type=text], textarea{
   100% {
     transform: scale(0.9);
   }
+}
+.Modal {
+  
+}
+
+.Overlay {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0);
+  opacity: 0.6;
 }

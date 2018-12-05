@@ -35,13 +35,11 @@ class Admin extends Component{
         return(
             //<Router>
                 <div>
-                    <h1>Painel adminstrador</h1>
                     <Route exact path='/admin' component={AdminHome}/> 
                     <Route
                         path={this.props.match.url+'/campanhas'}        
                         component={ AdminCampaign }
                     />
-                    
                 </div>
             //</Router>
         )

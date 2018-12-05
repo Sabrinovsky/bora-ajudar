@@ -96,6 +96,7 @@ class AdminCampaign extends Component{
     }
 
     handleAtt(key){
+        
         this.removeCampaign(this.state.updatekey)
         this.handleSave()
         this.saveBtn.removeAttribute('hidden',true)
@@ -121,28 +122,56 @@ class AdminCampaign extends Component{
                     <div className='product-item bg-faded admin-campaign'>
                     <h2>Nova campanha</h2>
                         <div>
-                            Campanha: <input type='text' ref={ref => this.nome = ref} /><br />
-                            Descrição: <textarea  ref={ref => this.texto = ref} ></textarea><br />
-                            Sub-título: <input type='text' ref={ref => this.sub = ref} /><br />
-                            <div class="custom-control">
-                                <label for='doacao'>Doação </label>
-                                <input type='radio' id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipoD = ref} /><br />
-                                <label>Produtos </label>
-                                <input type='radio' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipoP = ref} />
-                            </div>
-                            {this.state.tipo === 'doacao' && <div>
-                                <h4>Doação</h4>
-                                Meta: <input type='text' ref={ref => this.meta = ref} /><br />
-                                Arrecadado: <input type='text' defaultValue='0' ref={ref => this.arrecadado = ref} /><br />
-                            </div>}
-                            {this.state.tipo === 'produtos' && <div>
-                                <h4>Produtos</h4>
-                                Como doar: <input type='text' ref={ref => this.contato = ref} /><br />
-                            </div>}
+                            <form>
+                                <div className='form-group'>
+                                    <label> Campanha</label>
+                                    <input className='form-control' type='text' ref={ref => this.nome = ref} />
+                                </div>
 
-                            <button className='btn btn-secondary' onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar campanha</button>
-                            <button className='btn btn-secondary' onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar campanha</button>
-                            <br/>
+                                <div className='form-group'>
+                                    <label>Descrição</label>
+                                    <textarea className='form-control' ref={ref => this.texto = ref} ></textarea>
+                                </div>
+
+                                <div className='form-group'>
+                                    <label>Sub-título</label>
+                                    <input className='form-control' type='text' ref={ref => this.sub = ref} />
+                                </div>
+
+                                <div className='form-check'>
+                                    <input type='radio' className='form-check-input'  id='doacao' name='tipo' onClick={()=> this.setState({tipo:'doacao'})} ref={ref => this.tipoD = ref} />
+                                    <label for='doacao' className='form-check-label' >Doação </label>
+                                </div>
+
+                                <div className='form-check'>
+                                    <input type='radio' className='form-check-input' id='produtos' name='tipo' onClick={()=> this.setState({tipo:'produtos'})} ref={ref => this.tipoP = ref} />
+                                    <label for='produtos' className='form-check-label'>Produtos </label>
+                                </div>
+                                <br />
+                                {this.state.tipo === 'doacao' && <>
+                                   
+                                <div className='form-group'>
+                                    <label>Meta</label>
+                                    <input type='text' className='form-control' ref={ref => this.meta = ref} />
+                                </div>
+                                <div className='form-group'>
+                                    <label>Arrecadado</label>
+                                    <input type='text' className='form-control' defaultValue='0' ref={ref => this.arrecadado = ref} />
+                                </div>
+                                </>}
+                                {this.state.tipo === 'produtos' && <>
+                                   
+                                    <div className='form-group'>
+                                        <label>Como doar: </label>
+                                        <input type='text' className='form-control' ref={ref => this.contato = ref} />
+
+                                    </div>
+                                </>}
+
+                                <button className='btn btn-secondary' onClick={()=>this.handleSave()} ref={ref =>this.saveBtn = ref} >Salvar campanha</button>
+                                <button className='btn btn-secondary' onClick={()=>this.handleAtt()} hidden={true} ref={ref =>this.editBtn = ref} >Atualizar campanha</button>
+                                
+                            </form>
                         </div>
                         <hr/>
                         <table>
