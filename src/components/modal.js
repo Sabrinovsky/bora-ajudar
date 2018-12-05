@@ -8,14 +8,16 @@ class Modal extends Component{
             <div>
                 <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                 <div className="container">
-
+zzz
               
                     <div className="modal fade" id="myModal" role="dialog">
-                        <div class="lds-heart"><div></div></div>
+                        <div className="lds-heart"><div></div></div>
                         
                     </div>
                     
                 </div>
+                
+
 
             </div>
         )
