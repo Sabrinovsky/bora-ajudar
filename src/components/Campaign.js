@@ -60,7 +60,7 @@ class Campaign extends Component {
         this.setState({donation:e.value})
     }
     renderCampaign(key, campaign){
-        // var percent = (campaign.arrecadado/campaign.meta)*100
+        var percent = (campaign.arrecadado/campaign.meta)*100
          return(
             <section className='page-section' key={key} >
             <div className='container'>
@@ -79,13 +79,10 @@ class Campaign extends Component {
                             { campaign.tipo === 'doacao' && 
                                 <div>
                                     <div className='progress'>
-                                        <div className='progress-bar bg-success' role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+                                        <div className='progress-bar bg-success' style={{width:''+percent+'%'}} role='progressbar' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
                                     </div>
                                     <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
                                         <Select options={options}  onChange={this._handleChange} />
-                                        {/* <select options={options} ref = {ref => this.donationValue = ref} > */}
-                                            
-                                        {/* </select> */}
                                     <div>
                                         <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
                                     </div>

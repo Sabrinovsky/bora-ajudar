@@ -15,7 +15,7 @@ const Home = props =>{
                     <p className='mb-3'>Todos os trabalhos desenvolvidos pela Morada da Melhor Idade só é possível pela ajuda incansável de nossos voluntários.
                     </p>
                     <div className='intro-button mx-auto'>
-                    <a className='btn btn-primary btn-xl' href='/'>Veja o que estamos precisando no momento</a>
+                    <a className='btn btn-primary btn-xl' href='/campanhas'>Veja o que estamos precisando no momento</a>
                     </div>
                 </div>
                 </div>
