@@ -31,6 +31,7 @@ class Login extends Component{
             this.setState({
                 isLoggedIn: true
             })
+            window.location = '/admin/campanhas'
         })
         .catch(error =>{
             this.setState({

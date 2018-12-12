@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { auth } from './Base'
 import { BrowserRouter as Router,
          Route,
          Switch
@@ -16,11 +17,24 @@ import Login from './components/admin/Login'
 import NotFound from './components/NotFound'
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        admin: false
+    }
+  }
+  componentDidMount(){
+    auth.onAuthStateChanged(user =>{
+      if(user){
+       this.setState({admin:true})
+      }
+    })
+  }
   render() {
     return (
       <Router>
         <div>
-         <Header />
+         <Header admin={this.state.admin}/>
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/home' component={Home}/>

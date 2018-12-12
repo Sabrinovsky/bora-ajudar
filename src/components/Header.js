@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-const Header = props =>{
-    
-    return(
+
+class Header extends Component{
+    constructor(props){
+        super(props)
+        this.state = ({
+            admin:false
+        })
+    }
+    componentWillReceiveProps(props){
+        console.log(props)
+        this.setState({admin:props.admin})
+    }
+    render(){
+        return(
         <div>
             <h1 className='site-heading text-center text-white d-none d-lg-block'>
                 <img src='img/logo.png' />
@@ -37,11 +48,19 @@ const Header = props =>{
                             Contato
                         </Link>
                     </li>
+                    {console.log(this.state)}
+                    {this.state.admin==true &&
+                        <li className='nav-item px-lg-4'>
+                        <Link to='/admin/campanhas' className='nav-link text-uppercase text-expanded'>
+                            Gerenciar campanhas
+                        </Link>
+                    </li>
+                    }
                 </ul>
                 </div>
             </div>
             </nav>
-        </div>
-    )
+        </div>)
+    }
 }
 export default Header   
