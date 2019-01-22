@@ -247,6 +247,10 @@ p {
   border-color: #df902a;
 }
 
+.bg-success {
+  background-color: #df902a!important;
+}
+
 .font-weight-light {
   font-weight: 100 !important;
 }

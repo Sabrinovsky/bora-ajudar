@@ -84,7 +84,7 @@ class Campaign extends Component {
                                     <p>Meta: R$ {campaign.meta} / Atingidos: R$ {campaign.arrecadado}</p>
                                         <Select options={options}  onChange={this._handleChange} />
                                     <div>
-                                        <button className='btn btn-success' onClick={()=>this.handleDonate(key)}>Contribuir</button>
+                                        <button className='btn btn-primary' style={{marginTop:'5px'}} onClick={()=>this.handleDonate(key)}>Contribuir</button>
                                     </div>
                                 </div>}
                             { campaign.tipo === 'produtos' &&
