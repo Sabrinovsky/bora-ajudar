@@ -16,7 +16,7 @@ class Header extends Component{
         return(
         <div>
             <h1 className='site-heading text-center text-white d-none d-lg-block'>
-                <img src='img/logo.png' />
+                <img src='img/logo.png' alt="Logo" />
             </h1>
 
             {/* <!-- Navigation --> */}
@@ -48,8 +48,8 @@ class Header extends Component{
                             Contato
                         </Link>
                     </li>
-                    {console.log(this.state)}
-                    {this.state.admin==true &&
+                    { console.log(this.state) }
+                    { this.state.admin === true &&
                         <li className='nav-item px-lg-4'>
                         <Link to='/admin/campanhas' className='nav-link text-uppercase text-expanded'>
                             Gerenciar campanhas
