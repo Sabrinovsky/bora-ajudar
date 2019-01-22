@@ -43,11 +43,11 @@ class Header extends Component{
                             Campanhas
                         </Link>
                     </li>
-                    <li className='nav-item px-lg-4'>
+                    {false && <li className='nav-item px-lg-4'>
                         <Link to='/contato' className='nav-link text-uppercase text-expanded'>
                             Contato
                         </Link>
-                    </li>
+                    </li>}
                     {console.log(this.state)}
                     {this.state.admin==true &&
                         <li className='nav-item px-lg-4'>
