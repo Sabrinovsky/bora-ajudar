@@ -1,7 +1,6 @@
-const request = require('request-promise')
-const token = '92BF73718302430D90915994E3EE9781'
-const email = 'matheusouzatj@gmail.com'
-const parse = require('xml2js').parseString
+const request = require('request-promise');
+const parse = require('xml2js').parseString;
+const config = require('./config');
 
 // request({
 //     uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
@@ -26,11 +25,11 @@ const parse = require('xml2js').parseString
 // })
 
 request({
-    uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
+    uri: config.pagseguro.uri,
     method: 'POST',
     form:{
-        token: token,
-        email: email,
+        token: config.token,
+        email: config.email,
         currency: 'BRL',
         itemId1: 'idCampanha',
         itemDescription1: 'Doação',

@@ -6,16 +6,17 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 
+const config = require('./config');
+
+const configPagseguro = config.pagseguro;
+
 app.use(cors({origin: true}));
 admin.initializeApp(functions.config().firebase)
 // admin.initializeApp()
 
 const request = require('request-promise')
-const token = '3D764BB231C643E3985002A6DD39D3D4'
-const email = 'matheusouzatj@gmail.com'
 const parse = require('xml2js').parseString
 
-const checkoutUrl = 'https://pagseguro.uol.com.br/v2/checkout/payment.html?code='
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
@@ -28,11 +29,11 @@ app.get('/api', (req,res)=>{
 app.post('/donate',(req,res)=>{
     // rveconsole.log(req.body)
     request({
-        uri: 'https://ws.pagseguro.uol.com.br/v2/checkout?',
+        uri: configPagseguro.uri,
         method: 'POST',
         form:{
-            token: token,
-            email: email,
+            token: config.token,
+            email: config.email,
             currency: 'BRL',
             itemId1: req.body.idCampanha,
             itemDescription1: req.body.nome,
@@ -47,7 +48,7 @@ app.post('/donate',(req,res)=>{
     .then(data=>{
         parse(data, (err,json)=>{
             res.send({
-                url: checkoutUrl+json.checkout.code[0]
+                url: configPagseguro.checkoutUrl+json.checkout.code[0]
             })
         })
     })
@@ -59,10 +60,9 @@ app.post('/donate',(req,res)=>{
 
 app.post('/webhook', (req,res)=>{
     
-    const notificationUrl = 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/'
     const notificationCode = req.body.notificationCode
 
-    request(notificationUrl+notificationCode+'?token='+token+'?email='+email)
+    request(configPagseguro.notificationUrl+notificationCode+'?token='+config.token+'?email='+config.email)
     .then( xml =>{
         parse(xml, (err, transactionJson)=>{
             const transaction = transactionJson.transaction
